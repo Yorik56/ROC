@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="DWWM">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Zombie Invaders</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="js/bootstrap.min.js">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lobster&display=swap" rel="stylesheet"> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.js"></script> -->
+    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+        $(document).ready(function () {
+            // Compteur Cellules
+            var c1 = 0 ;
+            // Compteur Score
+            var score = 0;
+            /////////////////Création des lignes et des cellules/////////////////////////////////////////////////////////////////////
+            for(i=0;i<24;i++){
+                $('.zoneJeu1').append('<div class="row" id=ligne'+i+'>');
+                for(m=0;m<24;m++){
+                    c1++;
+                    $('#ligne'+i).append('<div class="col col-lg-1 col-xs-1 draggable cellule" id=cell'+c1+'>');
+                    $('#cell'+c1).append('<img id="backcell" class="img-fluid"  alt=backcell src="backcell.png" >');
+                }
+            }
+            ////////////////Ajout du drone//////////////////////////////////////////////////////////////////////////////////////////////
+            $('#cell516').append('<img id="drone" class="img-fluid"  alt=drone src="drone.png" >');
+            // Le drone devient draggable sur l'axe y il est contenu dans la div #area(on peut le déplacer avec la sourie)
+            $("#drone").draggable({ axis: "x", containment: "#area" }); // appel du plugin
+            // Position du drone (numéro de cellule)
+            var i = 516;
+            ////////////////Ajout des cafard///////////////////////////////////////////////////////////////////////////////////////////
+            var NbrCafards = 0;
+            var cafTab = [];
+                do {
+                    // alert(cafTab);
+                    // Generation d'un nombre  aleatoire
+                    var z = Math.floor((Math.random() * 24) + 1);
+                    // Si la cellule contient déjà un cafard
+                    if($('#cell'+z).hasClass('infested')){
+                        alert(cafTab);
+                        // On supprime le cafard en question
+                        $('.bug'+z).remove();
+                        // La cellule n'est plus infestée
+                        $('#cell' + z).removeClass('infested');
+                        // Le nombre de cafards est decrementé de 1
+                        NbrCafards--;
+                        // On parcours le tableau des cafards 
+                        for(s=0;s<cafTab.length;s++){
+                            // Si le numéro de celllule sauveguardé est egale au nombre aléatoire
+                            if(cafTab[s]==z){
+                                // Le numéro sauveguardé est supprimé
+                                cafTab.splice(s, 1);
+                            }
+                        }
+                        // alert(cafTab);
+                    }
+                    else{
+                        // Ajout d'un cafard à la cellule du nombre aléatoire 
+                        $('#cell' + z).append('<img id="bug" class="img-fluid bug'+z+' health3" alt="bug" src="bug.png" >');
+                        //Ajout d'une classe a la cellule du cafard
+                        $('#cell' + z).addClass('infested');
+                        // Variable points de vie du cafard
+                        var health = 3;
+                        // Nombre de cafards incrémenté
+                        NbrCafards++;
+                        // ajout du numéro de cellule du cafard au tableau caftab
+                        cafTab.push(z);
+                    }
+                } 
+                while (NbrCafards <5);
+                // alert(cafTab);
+                var k = 0;
+                var myVar3;
+                function myFunction() {
+                    myVar3 = setInterval(AvanceFunc, 900);
+                }
+                myFunction();
+                function AvanceFunc() {
+                    if (k == 22) {
+                        clearInterval(myVar3);
+                    }
+                    $('.bug'+(cafTab [0]-24)).remove();
+                    $('#cell'+(cafTab[0]-24)).removeClass('infested');
+                    $('#cell'+cafTab [0]).append('<img id="bug" class="img-fluid bug'+cafTab[0]+' health3" alt="bug" src="bug.png" >');
+                    $('#cell'+cafTab [0]).addClass('infested');
+                    $('.bug'+(cafTab [1]-24)).remove();
+                    $('#cell'+(cafTab[1]-24)).removeClass('infested');
+                    $('#cell'+cafTab [1]).append('<img id="bug" class="img-fluid bug'+cafTab[1]+' health3" alt="bug" src="bug.png" >');
+                    $('#cell'+cafTab [1]).addClass('infested');
+                    $('.bug'+(cafTab [2]-24)).remove();
+                    $('#cell'+(cafTab[2]-24)).removeClass('infested');
+                    $('#cell'+cafTab [2]).append('<img id="bug" class="img-fluid bug'+cafTab[2]+' health3" alt="bug" src="bug.png" >');
+                    $('#cell'+cafTab [2]).addClass('infested');
+                    $('.bug'+(cafTab [3]-24)).remove();
+                    $('#cell'+(cafTab[3]-24)).removeClass('infested');
+                    $('#cell'+cafTab [3]).append('<img id="bug" class="img-fluid bug'+cafTab[3]+' health3" alt="bug" src="bug.png" >');
+                    $('#cell'+cafTab [3]).addClass('infested');
+                    $('.bug'+(cafTab [4]-24)).remove();
+                    $('#cell'+(cafTab[4]-24)).removeClass('infested');
+                    $('#cell'+cafTab [4]).append('<img id="bug" class="img-fluid bug'+cafTab[4]+' health3" alt="bug" src="bug.png" >');
+                    $('#cell'+cafTab [4]).addClass('infested');
+                    cafTab[0] += 24;
+                    cafTab[1] += 24;
+                    cafTab[2] += 24;
+                    cafTab[3] += 24;
+                    cafTab[4] += 24;
+                    k++;
+                }  
+             //////////////////// Fonctions du Clavier//////////////////////////////////////////////////////////////////////////////////////
+            //Si on enfonce une touche
+            $(document).keydown(function () {
+                //Ecoute des evenements du clavier
+                var code = (event.which);
+                //Position Absolue du drone par rapport à la gauche du viewport
+                var pos = $("#drone").offset();
+                //Position de la cellule numéro 1 par rapport à la gauche du viewport
+                var offleft = $('#cell1').offset().left;
+                //Position de la cellule numéro 24 par rapport à la droite du viewport
+                var offright = $('#cell24').offset().left;
+                //Si on appuis sur la flèche de gauche
+                if (code == 37) { 
+                    if (pos.left > offleft+30) {
+                        i -- ;
+                        // On retire le drone
+                        $("#drone").remove();
+                        // On le place une cellule à droite
+                        $('#cell'+i).append('<img id="drone" height="100%" width="38%" margin-left="50%"  alt=drone src="drone.png" >');
+                        $(function () {
+                            // Il redevient draggable
+                            $("#drone").draggable({ axis: "x", containment: "#area" }); // appel du plugin
+                        });
+                    }
+                }
+                //Si on appuis sur la flèche de droite
+                else if (code == 39) { 
+                    if (pos.left < offright-20) {
+                        i ++ ;
+                        // On retire le drone
+                        $("#drone").remove();
+                        // On le place une cellule à gauche
+                        $('#cell' + i).append('<img id="drone" height="100%" width="38%" margin-left="50%" alt=drone src="drone.png" >');
+                        $(function () {
+                            // Il redevient draggable
+                            $("#drone").draggable({ axis: "x", containment: "#area" }); // appel du plugin
+                        });
+                    }
+                }
+                else if (code == 38) { 
+                    // On retire le drone
+                    $("#drone").remove();
+                    // On ajoute la seconde frame du drone
+                    $('#cell' + i).append('<img id="drone" height="100%" width="38%" margin-left="50%"  alt=drone src="drone2.png" >');
+                    $("#drone").draggable({ axis: "x", containment: "#area" }); // appel du plugin
+                    ////////////// Gestion du Timer pour les tirs/////////////////////////////////////////////////////////////////////
+                    var myVar;
+                    var l = i;
+                    var k = 0;
+                    var j = 24;
+                    function myFunction() {
+                        myVar = setInterval(shotFunc, 100);
+                    }
+                    myFunction();
+                    function shotFunc() {
+                        if(k==21){
+                        clearInterval(myVar);
+                    }
+                    $('.shot').remove();
+                    k++;
+                    var Tampon = 0;
+                    $('#cell' + (l - (j * k))).append('<img src="shot.png" class="shot">');
+                    if ($('#cell' + (l - (j * k))).hasClass('infested')) {
+                        var myVarS;
+                        Tampon = (l - (j * k));
+                        $('.bug'+Tampon).remove();
+                        function myFunctionframeShot() {
+                            myVarS = setInterval(shotFunc, 100);
+                        }
+                        myFunctionframeShot();
+                        function shotFunc() {
+                            $('#cell' + Tampon).append('<img id="bug" class="img-fluid bug'+Tampon+'"  alt="bug" src="bug.png" >');
+                            // $('#cell' + z).append('<img id="bug" class="img-fluid bug' + z + ' alt="bug" src="bug.png" >');
+                            clearInterval(myVarS);
+                        }
+                        health --;
+                        if (health == 0){
+                            score++;
+                            $('.monTimer').text(score);
+                            $('.bug' + Tampon).remove();
+                            }
+                        }
+                    }
+                }
+            });
+            $(document).keyup(function () {
+                var code = (event.which);
+                var pos = $("#drone").offset();
+                    if (code == 38) {
+                    $("#drone").remove();
+                    $('#cell' + i).append('<img id="drone" height="100%" width="38%" margin-left="50%" alt=drone src="drone.png" >');
+                    $("#drone").draggable({ axis: "x", containment: "#area" }); // appel du plugin
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-lg-48 header">
+                <span class="monTimer">Score</span>
+            </div>
+        </div>
+        <div class="row" id="area">
+            <div class="col col-lg-48 zoneJeu1">
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>    

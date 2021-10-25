@@ -1,0 +1,63 @@
+
+
+
+    <!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="DWWM">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Zombie Invaders</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="js/bootstrap.min.js">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lobster&display=swap" rel="stylesheet"> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.js"></script> -->
+    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+
+     
+    </style>
+    <script>
+        $(document).ready(function () {
+            var tableau = ['Thierry', 'Nicolas', 'Linda', 'Carole'];
+
+            function affichePlusTard(index) {
+                setTimeout(function () {
+                    var $p = document.createElement('p');
+                    $p.appendChild(document.createTextNode(tableau[index]));
+                    document.getElementById('area').appendChild($p);
+                }, index * 1000);
+            };
+            for (var i = 0, c = tableau.length; i < c; i++) {
+                affichePlusTard(i);
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-lg-48 header">
+                <span class="monTimer">Score</span>
+            </div>
+        </div>
+        <div class="row" id="area">
+            <div class="col col-lg-48 zoneJeu1">
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>    
